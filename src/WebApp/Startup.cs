@@ -27,7 +27,7 @@ namespace WebApp
             // register DbContext
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(_configuration.GetConnectionString("Path")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
