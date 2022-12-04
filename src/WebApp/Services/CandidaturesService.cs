@@ -52,7 +52,7 @@ namespace WebApp.Services
             
         }
 
-        public async Task DeleteCandidatureById(Guid Id)
+        public async Task DeleteCandidatureByIdAsync(Guid Id)
         {
             var candidature = await _context.Candidatures.Where(x => x.Id == Id).FirstOrDefaultAsync();
 

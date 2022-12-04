@@ -7,7 +7,7 @@ function GetCandidatures() {
         "serverSide": true,
         "filter": true,
         "ajax": {
-            "url": "/condidatures",
+            "url": "/candidature/list",
             "type": "POST",
             "datatype": "json",
         },
@@ -59,7 +59,7 @@ function getSelectedCandidatureId(id) {
 // Delete Request
 $("#save").on("click", function () {
     $.ajax({
-        "url": `/delete/${currentCandidatureId}`,
+        "url": `/candidature/delete/${currentCandidatureId}`,
         "type": "GET",
         "success": function () {
             $('#deleteModal').modal('hide');
