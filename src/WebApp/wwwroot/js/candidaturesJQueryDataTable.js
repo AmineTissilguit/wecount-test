@@ -19,7 +19,6 @@ function GetCandidatures() {
             {
                 "data":{ id: "id", cv: "cv"},
                 "render": function (data) {
-                    console.log(data);
                     return `<button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" 
                             onclick="return getSelectedCandidatureId('${data.id}')" data-bs-target="#deleteModal">Delete</button>` + 
                         `<button type="button" class="btn btn-secondary" data-bs-toggle="modal" 
@@ -57,8 +56,8 @@ function getSelectedCandidatureId(id) {
     currentCandidatureId = id;
 }
 
-function showCandidatureCVPath(path) {
-    $("pdf-input").attr("src",path);
+function showCandidatureCV(path) {
+    $(".pdf-input").attr('src', path);
 }
 
 // Delete Request
