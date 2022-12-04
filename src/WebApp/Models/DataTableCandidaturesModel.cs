@@ -11,7 +11,6 @@ namespace WebApp.Models
         public string NomComplet { get; set; }
         public DateTime DateEnvoi { get; set; }
         public string CV { get; set; }
-
         public string Tele { get; set; }
     }
 }

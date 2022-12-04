@@ -19,7 +19,10 @@ function GetCandidatures() {
             {
                 "data": "id",
                 "render": function (data) {
-                    return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="return getSelectedCandidatureId('${data}')" data-bs-target="#deleteModal">Delete</button>`;
+                    return `<button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" 
+                            onclick="return getSelectedCandidatureId('${data}')" data-bs-target="#deleteModal">Delete</button>` + 
+                        `<button type="button" class="btn btn-secondary" data-bs-toggle="modal" 
+                            data-bs-target="#pdfModal">CV</button>`;
                 },
                 "orderable": false
             }
