@@ -39,7 +39,7 @@ namespace WebApp.Services
                                                             {
                                                                 Id = x.Id.ToString(),
                                                                 CV = x.CV,
-                                                                DateEnvoi = x.CreatedOn,
+                                                                DateEnvoi = x.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss"),
                                                                 NomComplet = x.Prenom + " " + x.Nom,
                                                                 Tele   = x.Telephone
                                                             })
