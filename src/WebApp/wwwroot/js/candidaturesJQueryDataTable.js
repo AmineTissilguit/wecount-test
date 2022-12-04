@@ -3,8 +3,8 @@ let currentCandidatureId;
 
 function GetCandidatures() {
     $('#myTable').DataTable({
-        "processing": true,
         "serverSide": true,
+        "processing": true,
         "filter": true,
         "ajax": {
             "url": "/candidature/list",
@@ -17,12 +17,13 @@ function GetCandidatures() {
             { "data": "tele", "orderable": false },
             { "data": "dateEnvoi", "orderable": false },
             {
-                "data": "id",
+                "data":{ id: "id", cv: "cv"},
                 "render": function (data) {
+                    console.log(data);
                     return `<button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" 
-                            onclick="return getSelectedCandidatureId('${data}')" data-bs-target="#deleteModal">Delete</button>` + 
+                            onclick="return getSelectedCandidatureId('${data.id}')" data-bs-target="#deleteModal">Delete</button>` + 
                         `<button type="button" class="btn btn-secondary" data-bs-toggle="modal" 
-                            data-bs-target="#pdfModal">CV</button>`;
+                            data-bs-target="#pdfModal" onclick="return showCandidatureCV('${data.cv}')">CV</button>`;
                 },
                 "orderable": false
             }
@@ -56,7 +57,27 @@ function getSelectedCandidatureId(id) {
     currentCandidatureId = id;
 }
 
+function showCandidatureCVPath(path) {
+    $("pdf-input").attr("src",path);
+}
+
 // Delete Request
+$("#save").on("click", function () {
+    $.ajax({
+        "url": `/candidature/delete/${currentCandidatureId}`,
+        "type": "GET",
+        "success": function () {
+            $('#deleteModal').modal('hide');
+            $('#myTable').DataTable().ajax.reload();
+        },
+        "error": function (xhr, status, error) {
+            // TODO : don't let the error show up on the browser console
+            alert(xhr.responseText);
+        }
+    });
+});
+
+// Show Current Pdf
 $("#save").on("click", function () {
     $.ajax({
         "url": `/candidature/delete/${currentCandidatureId}`,
