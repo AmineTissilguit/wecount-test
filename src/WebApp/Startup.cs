@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApp.Data.EfClasses;
 using WebApp.Data.EfCode;
+using WebApp.Services;
+using WebApp.Services.Intrefaces;
 
 namespace WebApp
 {
@@ -27,6 +30,9 @@ namespace WebApp
             // register DbContext
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(_configuration.GetConnectionString("Path")));
 
+            // register App Services
+            services.AddScoped<ICandidaturesService, CandidaturesService>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
@@ -39,6 +45,8 @@ namespace WebApp
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.Migrate();
                 dbContext.Database.EnsureCreated();
+                dbContext.AddRange(DevelopmentSeeder());
+                dbContext.SaveChanges();
             }
             else
             {
@@ -58,5 +66,230 @@ namespace WebApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        private List<Candidature> DevelopmentSeeder()
+        {
+            return new List<Candidature>()
+        {
+            new Candidature()
+            {
+                CV   = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom  = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV   = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom  = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Rahma",
+                Telephone = "44444444",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            },
+            new Candidature()
+            {
+                CV = "dddd",
+                Mail = "dddd@gmail.com",
+                Nom = "Hamid",
+                Telephone = "06998585",
+                Prenom = "KKK",
+                DernierEmployeur = "dddd",
+                Id = Guid.NewGuid(),
+                AnneeExperience = 4,
+                NiveauEtude = "Bac+2"
+            }
+        };
+        }
     }
+
+    
 }

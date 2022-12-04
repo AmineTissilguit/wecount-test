@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApp.Models;
+using WebApp.Services.Intrefaces;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly ICandidaturesService _candidaturesService;
+        public HomeController(ICandidaturesService candidaturesService)
         {
+            _candidaturesService = candidaturesService;
         }
 
         public IActionResult Index()
@@ -23,6 +26,14 @@ namespace WebApp.Controllers
         public IActionResult Candidatures()
         {
             return View();
+        }
+
+        [HttpPost("/condidatures")]
+        public async Task<JsonResult> GetCandidaturesAsync(int length, int start)
+        {
+            var result = await _candidaturesService.GetCandidaturesAsync(length, start, Request.Form["search[value]"]);
+
+            return Json(new { data = result.Candidatures, recordsTotal = result.RecordsTotal, recordsFiltered = result.RecordsFiltered });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

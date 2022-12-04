@@ -4,7 +4,7 @@
 
 @*Add CSS *@
 @section appCss {
-<link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 }
 
 <h1 class="mb-5">@ViewData["Title"]</h1>
@@ -12,34 +12,25 @@
 
 @*Candidatures List*@
 
-<table id="myTable" class="display">
+<table id="myTable"  class="table table-striped" style="width:100%">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Nom complet</th>
+            <th>Tel</th>
             <th>Date d’envoi</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-        </tr>
     </tbody>
 </table>
 
 
 @*Add JS Script*@
 @section appScripts {
-<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="~/js/candidaturesJQueryDataTable.js"></script>
 
 }

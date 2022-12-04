@@ -7,6 +7,7 @@ namespace WebApp.Data.EfClasses
     [Table("CANDIDATURE")]
     public class Candidature
     {
+        
         public Guid Id { get; set; }
 
         [Required]
@@ -24,7 +25,7 @@ namespace WebApp.Data.EfClasses
         public string Telephone { get; set; }
 
         [Required]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         [Required]
         public string NiveauEtude { get; set; }
