@@ -13,9 +13,9 @@ function GetCandidatures() {
         },
         "columns": [
             { "data": "id" },
-            { "data": "nomComplet" },
-            { "data": "tele" },
-            { "data": "dateEnvoi" },
+            { "data": "nomComplet", "orderable": false },
+            { "data": "tele", "orderable": false },
+            { "data": "dateEnvoi", "orderable": false },
             {
                 "data": "id",
                 "render": function (data) {
@@ -58,7 +58,6 @@ function getSelectedCandidatureId(id) {
 
 // Delete Request
 $("#save").on("click", function () {
-    console.log("currentCandidatureId", currentCandidatureId);
     $.ajax({
         "url": `/delete/${currentCandidatureId}`,
         "type": "GET",
@@ -67,6 +66,7 @@ $("#save").on("click", function () {
             $('#myTable').DataTable().ajax.reload();
         },
         "error": function (xhr, status, error) {
+            // TODO : don't let the error show up on the browser console
             alert(xhr.responseText);
         }
     });

@@ -54,18 +54,16 @@ namespace WebApp.Services
 
         public async Task DeleteCandidatureById(Guid Id)
         {
-            //var candidature = await _context.Candidatures.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            var candidature = await _context.Candidatures.Where(x => x.Id == Id).FirstOrDefaultAsync();
 
-            //if(candidature is null)
-            //{
-            //    throw new CandidatureNotFoundException();
-            //}
+            if (candidature is null)
+            {
+                throw new CandidatureNotFoundException();
+            }
 
-            //_context.Candidatures.Remove(candidature);
+            _context.Candidatures.Remove(candidature);
 
-            //await _context.SaveChangesAsync();
-
-            throw new CandidatureNotFoundException();
+            await _context.SaveChangesAsync();
         }
     }
 }
