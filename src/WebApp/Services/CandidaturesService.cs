@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Data.EfClasses;
 using WebApp.Data.EfCode;
+using WebApp.Exceptions;
 using WebApp.Models;
 using WebApp.Services.Intrefaces;
 
@@ -17,6 +18,7 @@ namespace WebApp.Services
         {
             _context = context;
         }
+
         public async Task<DataTableModel> GetCandidaturesAsync(int length, int start, string search)
         {
             var dataTableModel = new DataTableModel();
@@ -35,7 +37,7 @@ namespace WebApp.Services
                                                             .Take(length)
                                                             .Select(x => new DataTableCandidaturesModel()
                                                             {
-                                                                Id = x.Id,
+                                                                Id = x.Id.ToString(),
                                                                 CV = x.CV,
                                                                 DateEnvoi = x.CreatedOn,
                                                                 NomComplet = x.Prenom + " " + x.Nom,
@@ -48,6 +50,22 @@ namespace WebApp.Services
 
             return dataTableModel;
             
+        }
+
+        public async Task DeleteCandidatureById(Guid Id)
+        {
+            //var candidature = await _context.Candidatures.Where(x => x.Id == Id).FirstOrDefaultAsync();
+
+            //if(candidature is null)
+            //{
+            //    throw new CandidatureNotFoundException();
+            //}
+
+            //_context.Candidatures.Remove(candidature);
+
+            //await _context.SaveChangesAsync();
+
+            throw new CandidatureNotFoundException();
         }
     }
 }

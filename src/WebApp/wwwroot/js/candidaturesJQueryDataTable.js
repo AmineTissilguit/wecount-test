@@ -1,4 +1,7 @@
-﻿function GetCandidatures() {
+﻿
+let currentCandidatureId;
+
+function GetCandidatures() {
     $('#myTable').DataTable({
         "processing": true,
         "serverSide": true,
@@ -14,8 +17,9 @@
             { "data": "tele" },
             { "data": "dateEnvoi" },
             {
-                "render": function(data, type, row) {
-                    return `<a href="#">Delete</a>`;
+                "data": "id",
+                "render": function (data) {
+                    return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="return getSelectedCandidatureId('${data}')" data-bs-target="#deleteModal">Delete</button>`;
                 },
                 "orderable": false
             }
@@ -45,7 +49,26 @@
     });
 
 }
+function getSelectedCandidatureId(id) {
+    currentCandidatureId = id;
+}
+
+// Delete Request
+$("#save").on("click", function () {
+    console.log("currentCandidatureId", currentCandidatureId);
+    $.ajax({
+        "url": `/delete/${currentCandidatureId}`,
+        "type": "GET",
+        "success": function () {
+            $('#deleteModal').modal('hide');
+            $('#myTable').DataTable().ajax.reload();
+        },
+        "error": function (xhr, status, error) {
+            alert(xhr.responseText);
+        }
+    });
+});
+
 $(document).ready(function () {
     GetCandidatures();
-
 });

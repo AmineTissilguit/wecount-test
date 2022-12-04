@@ -5,6 +5,10 @@
     {
       "library": "datatables.net-bs5@1.13.1",
       "destination": "wwwroot/lib/datatables.net-bs5/"
+    },
+    {
+      "library": "bootstrap-icons@1.10.2",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }
