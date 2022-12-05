@@ -41,6 +41,7 @@ namespace WebApp.Services
 
             dataTableModel.Candidatures = await candidatures.Skip(start)
                                                             .Take(length)
+                                                            .OrderByDescending(x => x.CreatedOn)
                                                             .Select(x => new DataTableCandidaturesModel()
                                                             {
                                                                 Id = x.Id.ToString(),
