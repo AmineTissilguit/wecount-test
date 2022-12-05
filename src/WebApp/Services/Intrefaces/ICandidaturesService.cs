@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using WebApp.Models;
 
@@ -10,7 +9,7 @@ namespace WebApp.Services.Intrefaces
         Task<DataTableModel> GetCandidaturesAsync(int length, int start, string search);
         Task DeleteCandidatureByIdAsync(Guid id);
         Task CreateCandidatureAsync(CandidatureForCreationModel candidatureForCreationModel);
-                                    
+
 
     }
 }

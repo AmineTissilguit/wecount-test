@@ -19,7 +19,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCandidature([FromForm] CandidatureForCreationModel candidatureForCreation)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             }
@@ -27,7 +27,7 @@ namespace WebApp.Controllers
             {
                 await _candidaturesService.CreateCandidatureAsync(candidatureForCreation);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }

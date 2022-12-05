@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
@@ -27,7 +24,7 @@ namespace WebApp.Models
         public string NiveauEtude { get; set; }
 
         [Required(ErrorMessage = "Le champ AnneeExperience est obligatoire")]
-        [Range(0,20,ErrorMessage = "Le champ AnneeExperience doit être compris entre 0 et 20")]
+        [Range(0, 20, ErrorMessage = "Le champ AnneeExperience doit être compris entre 0 et 20")]
         public int AnneeExperience { get; set; }
 
         [Required(ErrorMessage = "Le champ DernierEmployeur est obligatoire")]

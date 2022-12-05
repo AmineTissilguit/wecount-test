@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
@@ -81,7 +80,7 @@ namespace WebApp.Services
             var extension = Path.GetExtension(candidatureModel.UploadedCV.FileName);
 
             // Validate file extension
-            if(!_fileExtensionValidatorService.IsValid(extension, allowedExtensions))
+            if (!_fileExtensionValidatorService.IsValid(extension, allowedExtensions))
             {
                 throw new FileExtensionNotValidException();
             }
@@ -98,15 +97,15 @@ namespace WebApp.Services
             // save the candidature in database
             var candidature = new Candidature()
             {
-                AnneeExperience  = candidatureModel.AnneeExperience,
-                Id               = Guid.NewGuid(),
-                Nom              = candidatureModel.Nom,
-                Prenom           = candidatureModel.Prenom,
-                Mail             = candidatureModel.Mail,
-                CV               = $"/CV/{fileName}",
-                Telephone        = candidatureModel.Telephone,
+                AnneeExperience = candidatureModel.AnneeExperience,
+                Id = Guid.NewGuid(),
+                Nom = candidatureModel.Nom,
+                Prenom = candidatureModel.Prenom,
+                Mail = candidatureModel.Mail,
+                CV = $"/CV/{fileName}",
+                Telephone = candidatureModel.Telephone,
                 DernierEmployeur = candidatureModel.DernierEmployeur,
-                NiveauEtude      = candidatureModel.NiveauEtude
+                NiveauEtude = candidatureModel.NiveauEtude
             };
 
 
@@ -115,6 +114,6 @@ namespace WebApp.Services
 
         }
 
-        
+
     }
 }
