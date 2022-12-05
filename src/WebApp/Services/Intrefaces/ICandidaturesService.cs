@@ -8,6 +8,7 @@ namespace WebApp.Services.Intrefaces
     {
         Task<DataTableModel> GetCandidaturesAsync(int length, int start, string search);
         Task DeleteCandidatureByIdAsync(Guid id);
+        Task CreateCandidature(CandidatureForCreationModel candidatureForCreationModel);
 
     }
 }

@@ -27,6 +27,7 @@ namespace WebApp
 
             // register App Services
             services.AddScoped<ICandidaturesService, CandidaturesService>();
+            services.AddScoped<IFileExtensionValidatorService, FileExtensionValidatorService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

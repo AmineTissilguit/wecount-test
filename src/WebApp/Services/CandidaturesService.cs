@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,6 +63,22 @@ namespace WebApp.Services
             _context.Candidatures.Remove(candidature);
 
             await _context.SaveChangesAsync();
+        }
+
+        public Task CreateCandidature(CandidatureForCreationModel candidature, [FromServices] IFileExtensionValidatorService fileExtensionValidatorService)
+        {
+            string[] allowedExtensions = { "img", "pdf" };
+
+
+            // Validate file extension
+            if(!fileExtensionValidatorService.IsValid(candidature.UploadedCV.FileName, allowedExtensions))
+            {
+                throw new FileExtensionNotValidException();
+            }
+
+
+
+            throw new NotImplementedException();
         }
     }
 }
