@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
 using WebApp.Services.Intrefaces;
@@ -20,7 +21,7 @@ namespace WebApp.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return BadRequest(new { Message = "Invalid Data" });
+                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             }
             try
             {
