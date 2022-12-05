@@ -8,7 +8,7 @@ namespace WebApp.Data.EfCode
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
         {
-            
+
         }
         public DbSet<Candidature> Candidatures { get; set; }
     }

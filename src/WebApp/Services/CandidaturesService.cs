@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Data.EfClasses;
 using WebApp.Data.EfCode;
 using WebApp.Exceptions;
 using WebApp.Models;
@@ -41,7 +39,7 @@ namespace WebApp.Services
                                                                 CV = x.CV,
                                                                 DateEnvoi = x.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss"),
                                                                 NomComplet = x.Prenom + " " + x.Nom,
-                                                                Tele   = x.Telephone
+                                                                Tele = x.Telephone
                                                             })
                                                             .ToListAsync();
 
@@ -49,7 +47,7 @@ namespace WebApp.Services
             dataTableModel.RecordsFiltered = candidatures.Count();
 
             return dataTableModel;
-            
+
         }
 
         public async Task DeleteCandidatureByIdAsync(Guid Id)

@@ -7,7 +7,7 @@ namespace WebApp.Data.EfClasses
     [Table("CANDIDATURE")]
     public class Candidature
     {
-        
+
         public Guid Id { get; set; }
 
         [Required]
