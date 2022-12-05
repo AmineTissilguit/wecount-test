@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebApp.Data.EfClasses;
 using WebApp.Data.EfCode;
 
@@ -11,12 +12,13 @@ namespace WebApp.Extensions
     {
         public static IApplicationBuilder UseDevelopementDbSetup(this IApplicationBuilder app, AppDbContext dbContext)
         {
-            dbContext.Database.EnsureDeleted();
             dbContext.Database.Migrate();
-            dbContext.Database.EnsureCreated();
-            dbContext.AddRange(DevelopmentSeeder());
-            dbContext.SaveChanges();
 
+            if (!dbContext.Candidatures.Any())
+            {
+                dbContext.AddRange(DevelopmentSeeder());
+                dbContext.SaveChanges();
+            }
 
             return app;
         }

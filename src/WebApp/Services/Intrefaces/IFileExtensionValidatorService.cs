@@ -7,7 +7,6 @@ namespace WebApp.Services.Intrefaces
 {
     public interface IFileExtensionValidatorService
     {
-        bool IsValid(string fileName, string[] allewedExtensions);
-   
+        bool IsValid(string extension, string[] allewedExtensions);
     }
 }

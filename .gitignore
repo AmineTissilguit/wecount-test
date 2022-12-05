@@ -6,6 +6,7 @@
 
 # App files
 # appsettings.Development.json
+src/WebApp/wwwroot/CV/*
 
 # User-specific files
 *.rsuser
@@ -456,3 +457,4 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+

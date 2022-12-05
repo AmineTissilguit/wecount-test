@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Data.EfClasses;
 using WebApp.Data.EfCode;
 using WebApp.Exceptions;
 using WebApp.Models;
@@ -13,9 +16,13 @@ namespace WebApp.Services
     public class CandidaturesService : ICandidaturesService
     {
         private readonly AppDbContext _context;
-        public CandidaturesService(AppDbContext context)
+        private readonly IFileExtensionValidatorService _fileExtensionValidatorService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public CandidaturesService(AppDbContext context, IFileExtensionValidatorService fileExtensionValidatorService, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _fileExtensionValidatorService = fileExtensionValidatorService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<DataTableModel> GetCandidaturesAsync(int length, int start, string search)
@@ -65,20 +72,48 @@ namespace WebApp.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task CreateCandidature(CandidatureForCreationModel candidature, [FromServices] IFileExtensionValidatorService fileExtensionValidatorService)
+        public async Task CreateCandidatureAsync(CandidatureForCreationModel candidatureModel)
         {
-            string[] allowedExtensions = { "img", "pdf" };
 
+            string[] allowedExtensions = { ".jpg", ".png", ".pdf" };
+
+            var extension = Path.GetExtension(candidatureModel.UploadedCV.FileName);
 
             // Validate file extension
-            if(!fileExtensionValidatorService.IsValid(candidature.UploadedCV.FileName, allowedExtensions))
+            if(!_fileExtensionValidatorService.IsValid(extension, allowedExtensions))
             {
                 throw new FileExtensionNotValidException();
             }
 
+            // upload the file to the server
+            var fileName = $"{candidatureModel.Nom}-{candidatureModel.Prenom}-{Guid.NewGuid()}{extension}";
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "CV", fileName);
+
+            using FileStream fileStream = new(path, FileMode.Create);
+
+            candidatureModel.UploadedCV.CopyTo(fileStream);
+
+            // save the candidature in database
+            var candidature = new Candidature()
+            {
+                AnneeExperience  = candidatureModel.AnneeExperience,
+                Id               = Guid.NewGuid(),
+                Nom              = candidatureModel.Nom,
+                Prenom           = candidatureModel.Prenom,
+                Mail             = candidatureModel.Mail,
+                CV               = $"/CV/{fileName}",
+                Telephone        = candidatureModel.Telephone,
+                DernierEmployeur = candidatureModel.DernierEmployeur,
+                NiveauEtude      = candidatureModel.NiveauEtude
+            };
 
 
-            throw new NotImplementedException();
+            _context.Add(candidature);
+            await _context.SaveChangesAsync();
+
         }
+
+        
     }
 }

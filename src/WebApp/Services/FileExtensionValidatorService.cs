@@ -6,11 +6,9 @@ namespace WebApp.Services
 {
     public class FileExtensionValidatorService : IFileExtensionValidatorService
     {
-        public bool IsValid(string fileName, string[] allewedExtensions)
+        public bool IsValid(string extension, string[] allewedExtensions)
         {
-            var extension = Path.GetExtension(fileName);
-            return !allewedExtensions.Contains(extension.ToLower()) ? false : true;
-
+            return allewedExtensions.Contains(extension.ToLower()) ? true : false;
         }
     }
 }

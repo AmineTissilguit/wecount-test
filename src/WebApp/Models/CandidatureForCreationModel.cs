@@ -9,8 +9,6 @@ namespace WebApp.Models
 {
     public class CandidatureForCreationModel
     {
-        public Guid Id { get; set; }
-
         [Required]
         public string Nom { get; set; }
 
