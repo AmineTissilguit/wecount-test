@@ -76,22 +76,6 @@ $("#save").on("click", function () {
     });
 });
 
-// Show Current Pdf
-$("#save").on("click", function () {
-    $.ajax({
-        "url": `/candidature/delete/${currentCandidatureId}`,
-        "type": "GET",
-        "success": function () {
-            $('#deleteModal').modal('hide');
-            $('#myTable').DataTable().ajax.reload();
-        },
-        "error": function (xhr, status, error) {
-            // TODO : don't let the error show up on the browser console
-            alert(xhr.responseText);
-        }
-    });
-});
-
 $(document).ready(function () {
     GetCandidatures();
 });
