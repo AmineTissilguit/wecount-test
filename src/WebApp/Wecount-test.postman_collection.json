@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "b84daf20-6727-479e-a070-c124e8248804",
+		"name": "Wecount-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Candidature",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"random_number\", _.random(20));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Prenom",
+							"value": "{{$randomFirstName}}",
+							"type": "text"
+						},
+						{
+							"key": "Nom",
+							"value": "{{$randomLastName}}",
+							"type": "text"
+						},
+						{
+							"key": "Mail",
+							"value": "{{$randomEmail}}",
+							"type": "text"
+						},
+						{
+							"key": "Telephone",
+							"value": "{{$randomPhoneNumber}}",
+							"type": "text"
+						},
+						{
+							"key": "NiveauEtude",
+							"value": "{{$randomDomainSuffix}}",
+							"type": "text"
+						},
+						{
+							"key": "AnneeExperience",
+							"value": "{{random_number}}",
+							"type": "text"
+						},
+						{
+							"key": "DernierEmployeur",
+							"value": "{{$randomCompanyName}}",
+							"type": "text"
+						},
+						{
+							"key": "UploadedCV",
+							"type": "file",
+							"src": "/C:/Users/hamza/Downloads/test01.jpg"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44325/candidature",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44325",
+					"path": [
+						"candidature"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "random_number",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
