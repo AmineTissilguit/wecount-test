@@ -114,6 +114,36 @@ namespace WebApp.Services
 
         }
 
+        public async Task<Guid> CreateCandidatureInfoAsync(CandidaturePersonalInfoModel candidatureModel)
+        {
+            // create a new guid
+            var id = Guid.NewGuid();
+            while (await _context.Candidatures.AnyAsync( x => x.Id == id))
+            {
+                id = Guid.NewGuid();
+            }
 
+            // create candidature entity
+            var candidature = new Candidature()
+            {
+                AnneeExperience = candidatureModel.AnneeExperience,
+                Id = id,
+                Nom = candidatureModel.Nom,
+                Prenom = candidatureModel.Prenom,
+                Mail = candidatureModel.Mail,
+                CV = $"/CV/test01.pdf",
+                Telephone = candidatureModel.Telephone,
+                DernierEmployeur = candidatureModel.DernierEmployeur,
+                NiveauEtude = candidatureModel.NiveauEtude
+            };
+
+
+            // save candidature entity into database
+            _context.Add(candidature);
+            await _context.SaveChangesAsync();
+
+            return candidature.Id;
+
+        }
     }
 }

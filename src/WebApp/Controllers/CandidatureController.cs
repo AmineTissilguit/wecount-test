@@ -16,25 +16,6 @@ namespace WebApp.Controllers
             _candidaturesService = candidaturesService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateCandidature([FromForm] CandidatureForCreationModel candidatureForCreation)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
-            }
-            try
-            {
-                await _candidaturesService.CreateCandidatureAsync(candidatureForCreation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
-
-            return Ok();
-        }
-
         [HttpPost("list")]
         public async Task<JsonResult> GetCandidaturesAsync(int length, int start)
         {
