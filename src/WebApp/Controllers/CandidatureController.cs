@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models;
 using WebApp.Services.Intrefaces;
 
 namespace WebApp.Controllers
@@ -14,25 +12,6 @@ namespace WebApp.Controllers
         public CandidatureController(ICandidaturesService candidaturesService)
         {
             _candidaturesService = candidaturesService;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateCandidature([FromForm] CandidatureForCreationModel candidatureForCreation)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
-            }
-            try
-            {
-                await _candidaturesService.CreateCandidatureAsync(candidatureForCreation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
-
-            return Ok();
         }
 
         [HttpPost("list")]

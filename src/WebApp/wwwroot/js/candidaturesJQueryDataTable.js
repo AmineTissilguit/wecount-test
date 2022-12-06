@@ -20,7 +20,7 @@ function GetCandidatures() {
                 "data":{ id: "id", cv: "cv"},
                 "render": function (data) {
                     return `<button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" 
-                            onclick="return getSelectedCandidatureId('${data.id}')" data-bs-target="#deleteModal">Delete</button>` + 
+                            onclick="return getSelectedCandidatureId('${data.id}')" data-bs-target="#deleteModal">Supprimer</button>` +
                         `<button type="button" class="btn btn-secondary" data-bs-toggle="modal" 
                             data-bs-target="#pdfModal" onclick="return showCandidatureCV('${data.cv}')">CV</button>`;
                 },

@@ -1,0 +1,27 @@
+﻿@model WebApp.Models.UploadCVModel
+
+@{
+    ViewData["Title"] = "Upload CV";
+}
+
+<div class="mt-5 w-100 mb-5">
+
+    <h1 class="mb-5">Candidature CV</h1>
+
+    <form class="w-50" enctype="multipart/form-data" asp-action="UploadCV">
+        <div asp-validation-summary="All" class="mb-3"></div>
+        <input type="hidden" asp-for="CandidatureId" />
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" asp-for="UploadedCV" accept=".jpg, .png, .pdf">
+            <label class="input-group-text" asp-for="UploadedCV"></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Termin&eacute;e</button>
+    </form>
+
+</div>
+
+@*Add JS Script*@
+@section appScripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>
+}
