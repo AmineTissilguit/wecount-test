@@ -8,7 +8,7 @@
         <div asp-validation-summary="All" class="mb-3"></div>
         <input type="hidden" asp-for="CandidatureId" />
         <div class="input-group mb-3">
-            <input type="file" class="form-control" asp-for="UploadedCV">
+            <input type="file" class="form-control" asp-for="UploadedCV" accept=".jpg, .png, .pdf">
             <label class="input-group-text" asp-for="UploadedCV"></label>
         </div>
         <button type="submit" class="btn btn-primary">Termin&eacute;e</button>
