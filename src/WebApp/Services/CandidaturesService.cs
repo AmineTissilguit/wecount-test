@@ -72,48 +72,6 @@ namespace WebApp.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreateCandidatureAsync(CandidatureForCreationModel candidatureModel)
-        {
-
-            string[] allowedExtensions = { ".jpg", ".png", ".pdf" };
-
-            var extension = Path.GetExtension(candidatureModel.UploadedCV.FileName);
-
-            // Validate file extension
-            if (!_fileExtensionValidatorService.IsValid(extension, allowedExtensions))
-            {
-                throw new FileExtensionNotValidException();
-            }
-
-            // upload the file to the server
-            var fileName = $"{candidatureModel.Nom}-{candidatureModel.Prenom}-{Guid.NewGuid()}{extension}";
-
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "CV", fileName);
-
-            using FileStream fileStream = new(path, FileMode.Create);
-
-            candidatureModel.UploadedCV.CopyTo(fileStream);
-
-            // save the candidature in database
-            var candidature = new Candidature()
-            {
-                AnneeExperience = candidatureModel.AnneeExperience,
-                Id = Guid.NewGuid(),
-                Nom = candidatureModel.Nom,
-                Prenom = candidatureModel.Prenom,
-                Mail = candidatureModel.Mail,
-                CV = $"/CV/{fileName}",
-                Telephone = candidatureModel.Telephone,
-                DernierEmployeur = candidatureModel.DernierEmployeur,
-                NiveauEtude = candidatureModel.NiveauEtude
-            };
-
-
-            _context.Add(candidature);
-            await _context.SaveChangesAsync();
-
-        }
-
         public async Task<Guid> CreateCandidatureInfoAsync(CandidaturePersonalInfoModel candidatureModel)
         {
             // create a new guid
@@ -131,7 +89,7 @@ namespace WebApp.Services
                 Nom = candidatureModel.Nom,
                 Prenom = candidatureModel.Prenom,
                 Mail = candidatureModel.Mail,
-                CV = $"/CV/test01.pdf",
+                CV = "/CV/test01.pdf",
                 Telephone = candidatureModel.Telephone,
                 DernierEmployeur = candidatureModel.DernierEmployeur,
                 NiveauEtude = candidatureModel.NiveauEtude
@@ -144,6 +102,61 @@ namespace WebApp.Services
 
             return candidature.Id;
 
+        }
+
+
+        public async Task AddCvToCandidatureAsync(UploadCVModel uploadCVModel)
+        {
+            var candidature = await _context.Candidatures.FirstOrDefaultAsync(x => x.Id == uploadCVModel.CandidatureId);
+
+            if(candidature is null)
+            {
+                throw new CandidatureNotFoundException();
+            }
+
+            string[] allowedExtensions = { ".jpg", ".png", ".pdf" };
+
+            var extension = Path.GetExtension(uploadCVModel.UploadedCV.FileName);
+
+            // Validate file extension
+            if (!_fileExtensionValidatorService.IsValid(extension, allowedExtensions))
+            {
+                throw new FileExtensionNotValidException();
+            }
+
+            // upload the file to the server
+            var fileName = $"{candidature.Prenom}-{candidature}-{Guid.NewGuid()}{extension}";
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "CV", fileName);
+
+            using FileStream fileStream = new(path, FileMode.Create);
+
+            uploadCVModel.UploadedCV.CopyTo(fileStream);
+
+            // update the path of the cv
+            candidature.CV = $"/CV/{fileName}";
+
+            await _context.SaveChangesAsync();
+
+        }
+
+
+        public async Task<DetailModel> GetCondidatureDetailAsync(Guid id)
+        {
+            return await _context.Candidatures.AsNoTracking()
+                                              .Where(x => x.Id == id)
+                                              .Select(x => new DetailModel()
+                                              {
+                                                  AnneeExperience  = x.AnneeExperience,
+                                                  CV               = x.CV,
+                                                  DernierEmployeur = x.DernierEmployeur,
+                                                  Mail             = x.Mail,
+                                                  NiveauEtude      = x.NiveauEtude,
+                                                  Nom              = x.Nom,
+                                                  Prenom           = x.Prenom,
+                                                  Telephone        = x.Telephone
+                                              })
+                                              .FirstOrDefaultAsync();
         }
     }
 }

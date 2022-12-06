@@ -1,0 +1,85 @@
+﻿@model WebApp.Models.DetailModel
+
+@{
+    var defaultCVPath = "/CV/test01.pdf";
+}
+
+<div class="mt-5 w-100 mb-5">
+    <h1 class="mb-5">Candidature Detail</h1>
+
+    @if (Model is null)
+    {
+        <div class="row">
+            <div class="col">
+                <h3>Candidature introuvable</h3>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="Nom"></label>
+                <input class="form-control" asp-for="Nom" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="Prenom"></label>
+                <input class="form-control" asp-for="Prenom" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="Mail"></label>
+                <input class="form-control" asp-for="Mail" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="Telephone"></label>
+                <input class="form-control" asp-for="Telephone" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="NiveauEtude"></label>
+                <input class="form-control" asp-for="NiveauEtude" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="AnneeExperience"></label>
+                <input class="form-control" asp-for="AnneeExperience" readonly>
+            </div>
+            <div class="col-5 mb-4">
+                <label class="form-label" asp-for="DernierEmployeur"></label>
+                <input class="form-control" asp-for="DernierEmployeur" readonly>
+            </div>
+            @if (!Model.CV.Equals(defaultCVPath))
+            {
+                <div class="col-11 mb-4">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary form-control w-25" data-bs-toggle="modal" data-bs-target="#CVViewerModal">
+                        Voir CV
+                    </button>
+                </div>
+            }
+
+
+        </div>
+    }
+
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="CVViewerModal" tabindex="-1" aria-labelledby="CVViewerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="CVViewerModalLabel">CV</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <embed src="@Model.CV" class="w-100">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

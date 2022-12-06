@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,22 +26,62 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CandidaturePersonalInfo([FromForm] CandidaturePersonalInfoModel candidature)
         {
-            if(!ModelState.IsValid)
+            Guid id = Guid.NewGuid();
+
+            if (!ModelState.IsValid)
             {
                 return View();
             }
 
             try
             {
-                await _candidaturesService.CreateCandidatureInfoAsync(candidature);
+                id = await _candidaturesService.CreateCandidatureInfoAsync(candidature);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ModelState.AddModelError("CreateCandidatureFailed", "Une erreur s'est produite, veuillez réessayer plus tard");
+
+                return View();
             }
 
+            var candidatureModel = new UploadCVModel()
+            {
+                CandidatureId = id
+            };
 
-            return View();
+            return RedirectToAction("UploadCV", candidatureModel);
+        }
+
+        [HttpGet]
+        public IActionResult UploadCV(UploadCVModel uploadCVModel)
+        {
+            return View(uploadCVModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload([FromForm] UploadCVModel uploadCVModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            try
+            {
+                await _candidaturesService.AddCvToCandidatureAsync(uploadCVModel);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("AddCVFailed", ex.Message);
+            }
+
+            return RedirectToAction("Detail", new { candidatureId = uploadCVModel.CandidatureId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid candidatureId)
+        {
+            return View(await _candidaturesService.GetCondidatureDetailAsync(candidatureId));
         }
     }
 }
