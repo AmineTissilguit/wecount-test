@@ -8,6 +8,8 @@
 # appsettings.Development.json
 src/WebApp/wwwroot/CV/*
 
+!src/WebApp/wwwroot/CV/amine-tissilguit-cv.pdf
+
 # User-specific files
 *.rsuser
 *.suo
