@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
 using WebApp.Services.Intrefaces;
@@ -49,17 +46,17 @@ namespace WebApp.Controllers
                 CandidatureId = id
             };
 
-            return RedirectToAction("UploadCV", candidatureModel);
+            return RedirectToAction("GetUploadCVView", candidatureModel);
         }
 
         [HttpGet]
-        public IActionResult UploadCV(UploadCVModel uploadCVModel)
+        public IActionResult GetUploadCVView(UploadCVModel uploadCVModel)
         {
-            return View(uploadCVModel);
+            return View("UploadCV", uploadCVModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload([FromForm] UploadCVModel uploadCVModel)
+        public async Task<IActionResult> UploadCV([FromForm] UploadCVModel uploadCVModel)
         {
             if (!ModelState.IsValid)
             {
@@ -73,6 +70,8 @@ namespace WebApp.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("AddCVFailed", ex.Message);
+
+                return View("UploadCV");
             }
 
             return RedirectToAction("Detail", new { candidatureId = uploadCVModel.CandidatureId });

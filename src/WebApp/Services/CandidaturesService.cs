@@ -76,7 +76,7 @@ namespace WebApp.Services
         {
             // create a new guid
             var id = Guid.NewGuid();
-            while (await _context.Candidatures.AnyAsync( x => x.Id == id))
+            while (await _context.Candidatures.AnyAsync(x => x.Id == id))
             {
                 id = Guid.NewGuid();
             }
@@ -109,7 +109,7 @@ namespace WebApp.Services
         {
             var candidature = await _context.Candidatures.FirstOrDefaultAsync(x => x.Id == uploadCVModel.CandidatureId);
 
-            if(candidature is null)
+            if (candidature is null)
             {
                 throw new CandidatureNotFoundException();
             }
@@ -147,14 +147,14 @@ namespace WebApp.Services
                                               .Where(x => x.Id == id)
                                               .Select(x => new DetailModel()
                                               {
-                                                  AnneeExperience  = x.AnneeExperience,
-                                                  CV               = x.CV,
+                                                  AnneeExperience = x.AnneeExperience,
+                                                  CV = x.CV,
                                                   DernierEmployeur = x.DernierEmployeur,
-                                                  Mail             = x.Mail,
-                                                  NiveauEtude      = x.NiveauEtude,
-                                                  Nom              = x.Nom,
-                                                  Prenom           = x.Prenom,
-                                                  Telephone        = x.Telephone
+                                                  Mail = x.Mail,
+                                                  NiveauEtude = x.NiveauEtude,
+                                                  Nom = x.Nom,
+                                                  Prenom = x.Prenom,
+                                                  Telephone = x.Telephone
                                               })
                                               .FirstOrDefaultAsync();
         }

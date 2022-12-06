@@ -16,10 +16,10 @@ namespace WebApp.Models
 
         [Display(Name = "Niveau d'étude")]
         public string NiveauEtude { get; set; }
-        
+
         [Display(Name = "Nombre d'annee d'expérience")]
         public int AnneeExperience { get; set; }
-        
+
         [Display(Name = "Dernier employeur")]
         public string DernierEmployeur { get; set; }
 
